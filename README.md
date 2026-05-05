@@ -152,9 +152,12 @@ project, see [`docs/05-deployment-guide.md`](./docs/05-deployment-guide.md).
 ## Business Impact
 
 Numbers below come from running the SQL pipeline against the GA
-Merchandise Store dataset for April 2017. Conservative-scenario
-projections use industry-benchmark lower bounds. The full
-methodology, scenario modeling, and sensitivity analysis live in
+Merchandise Store dataset for April 2017. The Merchandise Store is
+a US-based account and the source currency is USD; the SEK column
+is a presentation-layer conversion at 10.5 SEK / USD for the
+Stockholm-based reader. Conservative-scenario projections use
+industry-benchmark lower bounds. The full methodology, scenario
+modeling, and sensitivity analysis live in
 [`docs/04-business-impact.md`](./docs/04-business-impact.md) and
 [`analysis/before-after-model.md`](./analysis/before-after-model.md).
 

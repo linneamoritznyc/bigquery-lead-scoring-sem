@@ -2,6 +2,7 @@
   "_comment": "Projected impact of lead-scoring + OCI feedback loop. Conservative estimates based on tier distribution and industry benchmarks for offline conversion imports. Execution timeline: 6 weeks. Payback period: 2-4 weeks based on signal multiplier.",
   "scenario": "conservative",
   "baseline_period": "2017-04",
+  "currency_note": "Source data and all USD fields below are the actual US-based account currency (Google Merchandise Store). SEK fields are presentation-layer conversions at 10.5 SEK/USD, kept alongside USD because the audience for this case study sits in Stockholm. The underlying client is American; the SEK number is a translation, not a source value.",
   "assumptions": [
     "20% CPA reduction: median observed uplift from Google's OCI case studies (verified on >100 e-commerce accounts)",
     "200% volume expansion: TIER_1 + TIER_2 (11,288 users) vs baseline converters (959), represents 12.8x addressable audience but modeled conservatively at 25% incremental conversion lift",

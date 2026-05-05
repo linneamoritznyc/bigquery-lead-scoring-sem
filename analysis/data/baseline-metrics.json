@@ -4,6 +4,7 @@
   "period": "2017-04-01 to 2017-04-30",
   "data_source": "bigquery-public-data.google_analytics_sample.ga_sessions_*",
   "region": "US (simulated client)",
+  "currency_note": "All monetary values in this file are USD - the Google Merchandise Store is a US-based account and BigQuery returns transactionRevenue in USD. Any SEK figures elsewhere in this repository are presentation-layer conversions at 10.5 SEK/USD for the Swedish-market hiring audience, not source-currency values.",
   "metrics": {
     "total_sessions": 67126,
     "total_users": 55681,

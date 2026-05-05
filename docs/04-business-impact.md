@@ -45,6 +45,13 @@ Conservative single-scenario projection from
 factor is the prime driver; CPA reduction is sourced from Google's
 own published OCI case studies.
 
+> **Currency.** The Google Merchandise Store is a US account and the
+> source data is USD. SEK columns below are presentation-layer
+> conversions at 10.5 SEK / USD, included so a Stockholm-based
+> reader can scan the impact in their native currency. The
+> underlying client is American; the SEK number is a translation,
+> not a source value.
+
 | Metric                              | Baseline (April 2017) | Projected (Month 2) |          Delta |     Impact |
 | ----------------------------------- | --------------------: | ------------------: | -------------: | ---------: |
 | Monthly conversions                 |                   959 |               1,015 |            +56 |      +5.8% |
