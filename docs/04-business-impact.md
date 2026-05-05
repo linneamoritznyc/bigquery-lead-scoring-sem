@@ -5,12 +5,28 @@ against a live account; placeholder cells marked `TBD`.
 
 ## Table of Contents
 
+- [The ROI Story](#the-roi-story)
 - [Baseline (Pre-Implementation)](#baseline-pre-implementation)
 - [Projected Uplift](#projected-uplift)
 - [Scenario Modeling](#scenario-modeling)
 - [Investment and Payback](#investment-and-payback)
 - [Sensitivity Analysis](#sensitivity-analysis)
 - [Methodology Notes](#methodology-notes)
+
+## The ROI Story
+
+| Phase                          | Metric                              | Value         | Implication                                                  |
+| ------------------------------ | ----------------------------------- | ------------- | ------------------------------------------------------------ |
+| **Baseline (April 2017)**      | Monthly conversions                 | 959           | Data-sparse: 32/day, near-zero per keyword                   |
+|                                | Keywords at signal threshold        | 2-5           | 500+ keywords bid blind                                      |
+|                                | Efficiency waste (mid-funnel)       | ~$9,500/month | Low CPA on top keywords, high waste on mid-funnel            |
+| **After OCI (Month 2)**        | Monthly training events             | 6,603         | +6.9× signal amplification                                   |
+|                                | Keywords with adequate signal       | 150-200       | Mid-funnel keywords now bidable                              |
+|                                | Projected incremental conversions   | +56           | 1% lift on TIER_1 (conservative vs 8-15% industry avg)       |
+|                                | Projected incremental revenue       | +$9,272       | +5.8% efficiency gain, zero budget increase                  |
+| **Annual Projection**          | Incremental revenue (SEK)           | +1,168,272    | ~2 weeks to payback implementation cost                      |
+|                                | ROI                                 | 3,609%        | Based on $3,000 one-time MSE labor cost                      |
+
 
 ## Baseline (Pre-Implementation)
 
