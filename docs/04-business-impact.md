@@ -14,19 +14,29 @@ against a live account; placeholder cells marked `TBD`.
 
 ## Baseline (Pre-Implementation)
 
-Numbers below are computed by `sql/04_baseline_metrics.sql` and
-written to `analysis/data/baseline-metrics.json`. Until that script
-is run, every cell is `TBD`.
+Computed by `sql/04_baseline_metrics.sql` against the GA
+Merchandise Store sample dataset for April 2017. Persisted in
+`analysis/data/baseline-metrics.json`.
 
-| KPI                       | Value | Source                              |
-| ------------------------- | ----- | ----------------------------------- |
-| Total sessions            | TBD   | `04_baseline_metrics.sql`           |
-| Total unique users        | TBD   | `04_baseline_metrics.sql`           |
-| Total conversions         | TBD   | `04_baseline_metrics.sql`           |
-| Conversion rate           | TBD   | `04_baseline_metrics.sql`           |
-| Average order value (USD) | TBD   | `04_baseline_metrics.sql`           |
-| Average session duration  | TBD   | `04_baseline_metrics.sql`           |
-| Total revenue (USD)       | TBD   | `04_baseline_metrics.sql`           |
+| KPI                       |        Value | Source                    |
+| ------------------------- | -----------: | ------------------------- |
+| Total sessions            |       67,126 | `04_baseline_metrics.sql` |
+| Total unique users        |       55,681 | `04_baseline_metrics.sql` |
+| Total conversions         |          959 | `04_baseline_metrics.sql` |
+| Conversion rate           |       1.43 % | `04_baseline_metrics.sql` |
+| Average order value (USD) |     $165.58  | `04_baseline_metrics.sql` |
+| Average session duration  |      139 sec | `04_baseline_metrics.sql` |
+| Total revenue (USD)       |    $158,789  | `04_baseline_metrics.sql` |
+
+### Scoring Universe
+
+| Tier                  | Users  | Share  | Avg propensity |
+| --------------------- | -----: | -----: | -------------: |
+| TIER_1_HIGH_INTENT    | 5,644  | 20 %   | 14.52          |
+| TIER_2_WARM           | 5,644  | 20 %   | 3.63           |
+| TIER_3_BROWSER        | 8,467  | 30 %   | 1.53           |
+| TIER_4_LOW_SIGNAL     | 8,469  | 30 %   | 0.81           |
+| **Total scored**      | **28,224** | -  | -              |
 
 ## Projected Uplift
 
@@ -34,11 +44,14 @@ Uplift estimates use industry-benchmark ranges, not vendor claims.
 The methodology section below explains the derivation. Outputs land
 in `analysis/data/projected-uplift.json`.
 
-| Metric                              | Conservative | Base case | Aggressive |
-| ----------------------------------- | -----------: | --------: | ---------: |
-| CPA reduction                       | TBD          | TBD       | TBD        |
-| Conversion volume increase          | TBD          | TBD       | TBD        |
-| Incremental revenue (SEK, monthly)  | TBD          | TBD       | TBD        |
+| Metric                              | Conservative | Base case  | Aggressive |
+| ----------------------------------- | -----------: | ---------: | ---------: |
+| CPA reduction                       |        8 %   |       12 % |       18 % |
+| Conversion volume increase          |        5 %   |        8 % |       12 % |
+| Incremental conversions / month     |        +48   |       +77  |     +115   |
+| Incremental revenue (USD / month)   |     $7,948   |   $12,750  |  $19,041   |
+| Incremental revenue (SEK / month)   | **SEK 83,454**| SEK 133,875| SEK 199,931|
+| Annualized (SEK)                    | SEK 1.00 M   |  SEK 1.61 M|  SEK 2.40 M|
 
 ## Scenario Modeling
 
@@ -60,12 +73,15 @@ The numbers in `analysis/data/projected-uplift.json` reflect the
 
 | Line item                            | Estimate                       |
 | ------------------------------------ | ------------------------------ |
-| One-time engineering (build + QA)    | TBD hours                      |
-| Recurring maintenance                | TBD hours / month              |
-| BigQuery on-demand cost              | TBD SEK / month                |
-| Cloud Scheduler + Cloud Run          | TBD SEK / month                |
-| Total monthly run cost               | TBD SEK                        |
-| Payback period (conservative)        | TBD months                     |
+| One-time engineering (build + QA)    | ~80 hours @ SEK 1,500/hr       |
+| One-time build cost                  | **SEK 120,000**                |
+| Recurring maintenance                | ~10 hours / month              |
+| Recurring labor cost                 | SEK 15,000 / month             |
+| BigQuery on-demand cost              | <SEK 100 / month at this scale |
+| Cloud Scheduler + Cloud Run job      | <SEK 50 / month                |
+| Total monthly run cost               | **~SEK 15,150**                |
+| Conservative monthly upside          | SEK 83,454                     |
+| Payback period (conservative)        | **~1.5 months**                |
 
 ## Sensitivity Analysis
 
