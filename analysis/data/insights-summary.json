@@ -1,0 +1,45 @@
+{
+  "case_study": "BigQuery-driven Lead Scoring for Predictive SEM Bidding",
+  "client": "Google Merchandise Store",
+  "period": "April 2017",
+  "currency_note": "Monetary values are USD (Google Merchandise Store is a US-based account). SEK figures elsewhere in the repo are presentation-layer conversions at 10.5 SEK/USD for the Stockholm-based reader.",
+  "key_insights": [
+    {
+      "insight": "Data Scarcity Problem",
+      "metric": "959 conversions / 30 days = 32/day",
+      "problem": "Google Smart Bidding needs 30-50 conv/keyword/month. 99% of keywords below threshold.",
+      "impact_usd_monthly": 9500,
+      "severity": "critical"
+    },
+    {
+      "insight": "High-Intent Pool Opportunity",
+      "metric": "5,644 TIER_1 users with 0 purchases",
+      "problem": "Strong funnel signals (79 ATC, 16 checkout) but no revenue. Indicates checkout friction, not lack of intent.",
+      "addressable_revenue_usd_monthly": 9272,
+      "severity": "high"
+    },
+    {
+      "insight": "Signal Amplification via OCI",
+      "metric": "6.9x multiplier (6,603 events vs 959)",
+      "problem": "Smart Bidding trains on converters only. Mid-funnel signals ignored.",
+      "solution": "Import TIER_1 as offline conversions. Bi-directional feedback loop.",
+      "implementation_weeks": 6,
+      "severity": "strategic"
+    },
+    {
+      "insight": "Agency Stickiness Through Proprietary Signal Layer",
+      "metric": "SQL + weights + OCI script = irreplaceable IP",
+      "problem": "Client switching cost is low if all bidding logic lives in Google's UI.",
+      "solution": "Build the signal layer in agency-owned GitHub. Export/import only the final OCI file to Google.",
+      "switching_cost_pct_incremental_revenue": 100,
+      "severity": "strategic"
+    }
+  ],
+  "next_steps": [
+    "Month 1: Deploy OCI import script, monitor tier distribution for drift",
+    "Month 2: Measure conversion lift on TIER_1 keywords",
+    "Month 3: A/B test bid modifiers (+20% TIER_1, -10% TIER_3/4)",
+    "Month 4: Productize for Precis's other e-commerce clients (Matas, Ahlens, Fjallraven)",
+    "Ongoing: Monthly model retraining, quarterly business reviews with client"
+  ]
+}

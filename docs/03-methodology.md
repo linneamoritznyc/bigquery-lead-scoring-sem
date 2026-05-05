@@ -14,6 +14,9 @@ pipeline.
 - [Decile Tiering](#decile-tiering)
 - [Signal-to-Noise and Data Latency](#signal-to-noise-and-data-latency)
 - [Why API-First Architecture](#why-api-first-architecture)
+- [Tier Scoring Algorithm](#tier-scoring-algorithm)
+- [Why Capping is Critical](#why-capping-is-critical)
+- [Conversion Exclusion Logic](#conversion-exclusion-logic)
 - [Limitations and Future Work](#limitations-and-future-work)
 
 ## Why Score, Not Predict
@@ -139,6 +142,91 @@ Future requirements that this architecture absorbs without rewrites:
 
 The cost of the upfront abstraction is one weekend. The cost of
 retrofitting it later is months.
+
+## Tier Scoring Algorithm
+
+The `raw_scoring` CTE in `sql/01_lead_scoring.sql` is the heart of
+the model. Reproduced below with line-by-line annotation:
+
+```sql
+raw_scoring AS (
+  SELECT
+    u.fullVisitorId,
+    -- Capped, weighted contributions per behavioral signal:
+      LEAST(u.product_detail_views, 20)              *  3.0
+    --        ^ raw count             ^ cap ^ weight (small per-event signal)
+    + LEAST(u.add_to_cart_events,   10)              *  8.0
+    --                                                  ^ medium signal: explicit purchase candidacy
+    + LEAST(u.checkout_initiations,  5)              * 15.0
+    --                                                  ^ strongest pre-purchase signal
+    + LEAST(IFNULL(p.unique_products_viewed, 0), 15) *  2.0
+    --                                                  ^ breadth proxy for shopping mode
+    + LEAST(u.session_count, 8)                      *  4.0
+    --                                                  ^ repeat-visit signal: consideration
+    + LEAST(u.total_time_on_site_sec / 60.0, 30)     *  1.0
+    --                                                  ^ weak per-minute signal, useful as tiebreaker
+    - (u.bounce_rate * 5.0)                          AS raw_score
+    --   ^ negative term: penalty for accidental high-volume sessions
+  FROM user_aggregates u
+  LEFT JOIN product_breadth p USING (fullVisitorId)
+  WHERE u.completed_purchases = 0
+  --    ^ exclude already-converted users (see "Conversion Exclusion Logic")
+)
+```
+
+The output is a single `raw_score` per user. Downstream CTEs apply
+min-max normalization to 0-100 and `NTILE(10)` to bucket into the
+four activation tiers.
+
+## Why Capping is Critical
+
+Without the `LEAST(metric, cap)` wrappers, a single user with 100+
+product detail views would score off the chart and break the model.
+The caps ensure long-tail stability, and the math is easy to verify:
+
+| Signal                  | Cap | Weight | Max contribution |
+| ----------------------- | --: | -----: | ---------------: |
+| Product detail view     |  20 |    3.0 |               60 |
+| Add-to-cart             |  10 |    8.0 |               80 |
+| Checkout initiation     |   5 |   15.0 |               75 |
+| Unique products viewed  |  15 |    2.0 |               30 |
+| Session count           |   8 |    4.0 |               32 |
+| Time on site (minutes)  |  30 |    1.0 |               30 |
+| **Maximum raw score**   |   - |      - |          **307** |
+
+Maximum raw score from positive signals alone, before bounce penalty
+and before normalization, is **307 points**. After min-max
+normalization, the observed maximum in the April 2017 BigQuery run
+is **100.00**, exactly as the formula predicts.
+
+If the caps were removed, a single hyperactive user with 200 product
+detail views would land at 600 points just from PDV - enough to
+push every legitimate Tier 1 user into Tier 2 by relative ranking.
+The cap prevents that single-user dominance and forces the model to
+identify *patterns* rather than *individuals*.
+
+## Conversion Exclusion Logic
+
+The `WHERE u.completed_purchases = 0` filter in `raw_scoring` is the
+most important line in the model. Its purpose is subtle and worth
+making explicit.
+
+The model exists to identify users who are *likely* to convert. A
+user who has already converted is no longer a prediction target -
+they are ground truth. Including them in the scoring universe would
+produce two failure modes:
+
+1. **Label leakage.** Converters have higher add-to-cart counts
+   *because they completed checkout*. Including them in training
+   collapses the model into a tautology: "users who bought have
+   higher purchase scores".
+2. **Signal pollution.** Converters are already in Smart Bidding's
+   training set via the native conversion event. Re-uploading them
+   as offline conversions would double-count and inflate the
+   bidder's confidence in already-resolved auctions.
+
+OCI's strategic value is identifying *future* converters, not
+relabeling past ones. The exclusion clause is what enforces that.
 
 ## Limitations and Future Work
 
