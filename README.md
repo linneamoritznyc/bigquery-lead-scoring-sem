@@ -151,24 +151,33 @@ project, see [`docs/05-deployment-guide.md`](./docs/05-deployment-guide.md).
 
 ## Business Impact
 
-The numbers below are populated after running `sql/04_baseline_metrics.sql`
-against the GA Merchandise Store sample dataset for April 2017.
-Until then, every cell is `TBD`.
+Numbers below come from running the SQL pipeline against the GA
+Merchandise Store dataset for April 2017. Conservative-scenario
+projections use industry-benchmark lower bounds. The full
+methodology, scenario modeling, and sensitivity analysis live in
+[`docs/04-business-impact.md`](./docs/04-business-impact.md) and
+[`analysis/before-after-model.md`](./analysis/before-after-model.md).
 
-| Metric                       | Baseline (April 2017) | Conservative projection |
-| ---------------------------- | --------------------- | ----------------------- |
-| Total sessions               | TBD                   | TBD                     |
-| Conversion rate              | TBD                   | TBD                     |
-| Average order value          | TBD                   | TBD                     |
-| Total revenue                | TBD                   | TBD                     |
-| Projected CPA reduction      | -                     | TBD                     |
-| Projected volume increase    | -                     | TBD                     |
-| Incremental revenue (SEK/mo) | -                     | TBD                     |
-| Payback period               | -                     | TBD                     |
+| Metric                            | Baseline (April 2017) | Conservative projection |
+| --------------------------------- | --------------------: | ----------------------: |
+| Total sessions                    | 67,126                | -                       |
+| Total unique users                | 55,681                | -                       |
+| Conversions                       | 959                   | +48 / month             |
+| Conversion rate                   | 1.43 %                | +5 % vol. lift          |
+| Average order value               | $165.58               | held constant           |
+| Total revenue                     | $158,789              | +$7,948 / month         |
+| Projected CPA reduction           | -                     | 8 %                     |
+| Projected volume increase         | -                     | 5 %                     |
+| Incremental revenue (SEK / month) | -                     | **SEK 83,454**          |
+| Annualized incremental revenue    | -                     | **SEK ~1.0 M**          |
+| Payback period                    | -                     | **~1.5 months**         |
 
-The full methodology, scenario modeling, and sensitivity analysis
-live in [`docs/04-business-impact.md`](./docs/04-business-impact.md)
-and [`analysis/before-after-model.md`](./analysis/before-after-model.md).
+**The headline.** The model identifies 5,644 Tier-1 high-intent
+users who never converted in-window. Uploading them as offline
+conversions multiplies Smart Bidding's training signal by **6.9x**
+(from 959 to 6,603 events / month) without diluting predictive
+value. That is the difference between "untrainable" and "trainable"
+for the long tail of mid-funnel keywords.
 
 ## About the Author
 
