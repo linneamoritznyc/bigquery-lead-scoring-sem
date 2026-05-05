@@ -1,0 +1,19 @@
+{
+  "_comment": "Conservative-scenario projections derived from baseline-metrics.json. See analysis/before-after-model.md for the full derivation and assumptions list.",
+  "scenario": "conservative",
+  "projected_cpa_reduction_pct": null,
+  "projected_volume_increase_pct": null,
+  "projected_incremental_revenue_sek": null,
+  "implementation_timeline_weeks": null,
+  "payback_period_months": null,
+  "assumptions": [
+    "Baseline conversion rate is sub-2 percent, the regime in which signal densification produces meaningful Smart Bidding gains.",
+    "Tier 1 audience size is between 5 and 15 percent of the scored user universe.",
+    "Average order value held constant at the trailing-six-month median; AOV expansion is not credited to this initiative.",
+    "Smart Bidding takes 14 days to fully integrate the densified signal; reported uplift excludes the integration window.",
+    "Industry benchmark range for offline-conversion-densified Smart Bidding: 5-18 percent CPA reduction. Conservative scenario uses the lower bound.",
+    "USD to SEK conversion at 10.5 SEK per USD; FX volatility absorbed into the conservative buffer.",
+    "Recurring infrastructure cost is dominated by BigQuery on-demand pricing; storage and Cloud Run are negligible at this scale.",
+    "No incremental media spend; uplift is held to be efficiency-only on the existing budget."
+  ]
+}
