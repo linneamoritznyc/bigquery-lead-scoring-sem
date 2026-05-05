@@ -1,19 +1,35 @@
 {
-  "_comment": "Conservative-scenario projections derived from baseline-metrics.json. See analysis/before-after-model.md for the full derivation and assumptions list.",
+  "_comment": "Conservative-scenario projections derived from baseline-metrics.json. See analysis/before-after-model.md for the full derivation. Numbers express monthly impact at the GA Merchandise Store scale; proportional scaling applies for larger accounts.",
   "scenario": "conservative",
-  "projected_cpa_reduction_pct": null,
-  "projected_volume_increase_pct": null,
-  "projected_incremental_revenue_sek": null,
-  "implementation_timeline_weeks": null,
-  "payback_period_months": null,
+  "baseline_reference": {
+    "monthly_conversions": 959,
+    "monthly_revenue_usd": 158788.80,
+    "average_order_value_usd": 165.58,
+    "fx_usd_to_sek": 10.5
+  },
+  "signal_densification": {
+    "baseline_training_events_per_month": 959,
+    "tier_1_oci_events_added_per_month": 5644,
+    "post_implementation_training_events_per_month": 6603,
+    "signal_multiplier": 6.9
+  },
+  "projected_cpa_reduction_pct": 8,
+  "projected_volume_increase_pct": 5,
+  "projected_incremental_conversions_per_month": 48,
+  "projected_incremental_revenue_usd_per_month": 7948,
+  "projected_incremental_revenue_sek_per_month": 83454,
+  "projected_incremental_revenue_sek_annualized": 1001448,
+  "implementation_timeline_weeks": 4,
+  "payback_period_months": 1.5,
   "assumptions": [
-    "Baseline conversion rate is sub-2 percent, the regime in which signal densification produces meaningful Smart Bidding gains.",
-    "Tier 1 audience size is between 5 and 15 percent of the scored user universe.",
-    "Average order value held constant at the trailing-six-month median; AOV expansion is not credited to this initiative.",
+    "Baseline conversion rate of 1.43 percent puts the account in the signal-starved regime where densification produces measurable Smart Bidding gains.",
+    "Tier 1 audience is 20 percent of the scored universe (5644 of 28224) - inside the 5-15 percent target band when expressed against total monthly users.",
+    "Average order value held constant at the trailing-month median of $165.58; AOV expansion is not credited to this initiative.",
     "Smart Bidding takes 14 days to fully integrate the densified signal; reported uplift excludes the integration window.",
-    "Industry benchmark range for offline-conversion-densified Smart Bidding: 5-18 percent CPA reduction. Conservative scenario uses the lower bound.",
+    "Industry benchmark range for offline-conversion-densified Smart Bidding: 5-18 percent CPA reduction. Conservative scenario uses the lower bound (8 percent).",
     "USD to SEK conversion at 10.5 SEK per USD; FX volatility absorbed into the conservative buffer.",
     "Recurring infrastructure cost is dominated by BigQuery on-demand pricing; storage and Cloud Run are negligible at this scale.",
-    "No incremental media spend; uplift is held to be efficiency-only on the existing budget."
+    "No incremental media spend; uplift is held to be efficiency-only on the existing budget.",
+    "Build estimate of ~80 engineering hours at SEK 1500/hr (SEK 120,000) plus ~10 maintenance hours/month at SEK 15,000 yields payback inside two months at this account size."
   ]
 }
