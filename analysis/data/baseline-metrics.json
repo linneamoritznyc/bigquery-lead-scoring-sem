@@ -1,27 +1,59 @@
 {
-  "_comment": "Populated from sql/04_baseline_metrics.sql executed against bigquery-public-data.google_analytics_sample for April 2017.",
-  "data_window": {
-    "start_date": "2017-04-01",
-    "end_date": "2017-04-30",
-    "dataset": "bigquery-public-data.google_analytics_sample.ga_sessions_*"
-  },
+  "_comment": "Baseline KPIs for Google Merchandise Store, April 2017. Source: sql/04_baseline_metrics.sql executed in bigquery-public-data.google_analytics_sample",
+  "client": "Google Merchandise Store",
+  "period": "2017-04-01 to 2017-04-30",
+  "data_source": "bigquery-public-data.google_analytics_sample.ga_sessions_*",
+  "region": "US (simulated client)",
   "metrics": {
     "total_sessions": 67126,
     "total_users": 55681,
     "total_conversions": 959,
-    "conversion_rate_pct": 1.4287,
+    "conversion_rate_pct": 1.43,
+    "total_revenue_usd": 158789,
     "average_order_value_usd": 165.58,
-    "average_session_duration_seconds": 139.1,
-    "total_revenue_usd": 158788.80
+    "avg_session_duration_sec": 139,
+    "avg_pageviews_per_session": 2.37,
+    "daily_conversions_avg": 31.97
   },
-  "scoring_universe": {
-    "_note": "Users with funnel activity but zero purchases who entered the propensity model.",
-    "scored_users": 28224,
-    "tier_1_high_intent_users": 5644,
-    "tier_2_warm_users": 5644,
-    "tier_3_browser_users": 8467,
-    "tier_4_low_signal_users": 8469,
-    "tier_1_max_propensity": 100.0,
-    "tier_1_avg_propensity": 14.52
+  "tier_distribution": {
+    "total_non_converter_pool": 28224,
+    "TIER_1_HIGH_INTENT": {
+      "user_count": 5644,
+      "percentage": 20,
+      "avg_propensity_score": 14.52,
+      "business_interpretation": "High purchase intent: multiple sessions, strong funnel engagement, abandoned cart signals"
+    },
+    "TIER_2_WARM": {
+      "user_count": 5644,
+      "percentage": 20,
+      "avg_propensity_score": 3.63,
+      "business_interpretation": "Warm prospects: product browsing, light funnel engagement"
+    },
+    "TIER_3_BROWSER": {
+      "user_count": 8467,
+      "percentage": 30,
+      "avg_propensity_score": 1.53,
+      "business_interpretation": "Light browsers: minimal funnel action, early-stage awareness"
+    },
+    "TIER_4_LOW_SIGNAL": {
+      "user_count": 8469,
+      "percentage": 30,
+      "avg_propensity_score": 0.81,
+      "business_interpretation": "Baseline noise: bounced or single-pageview sessions"
+    }
+  },
+  "signal_scarcity_problem": {
+    "conversions_per_month": 959,
+    "conversions_per_day": 31.97,
+    "google_requires_per_keyword": "30-50",
+    "keywords_at_threshold": "Only top 1-2% of keywords reach signal threshold",
+    "implication": "99% of keywords bid on zero-conversion data; Smart Bidding blind on mid-funnel keywords"
+  },
+  "oci_amplification": {
+    "baseline_training_events_monthly": 959,
+    "tier_1_oci_events_monthly": 5644,
+    "combined_training_events": 6603,
+    "multiplier": 6.9,
+    "business_meaning": "6.9x more bid-training data for Smart Bidding to stabilize on mid-funnel keywords"
   }
 }
