@@ -1,17 +1,27 @@
 {
-  "_comment": "Populated from sql/04_baseline_metrics.sql. Run that query against the GA Merchandise Store sample dataset for April 2017 and paste the single-row output into the keys below.",
+  "_comment": "Populated from sql/04_baseline_metrics.sql executed against bigquery-public-data.google_analytics_sample for April 2017.",
   "data_window": {
     "start_date": "2017-04-01",
     "end_date": "2017-04-30",
     "dataset": "bigquery-public-data.google_analytics_sample.ga_sessions_*"
   },
   "metrics": {
-    "total_sessions": null,
-    "total_users": null,
-    "total_conversions": null,
-    "conversion_rate": null,
-    "average_order_value": null,
-    "average_session_duration_seconds": null,
-    "total_revenue_usd": null
+    "total_sessions": 67126,
+    "total_users": 55681,
+    "total_conversions": 959,
+    "conversion_rate_pct": 1.4287,
+    "average_order_value_usd": 165.58,
+    "average_session_duration_seconds": 139.1,
+    "total_revenue_usd": 158788.80
+  },
+  "scoring_universe": {
+    "_note": "Users with funnel activity but zero purchases who entered the propensity model.",
+    "scored_users": 28224,
+    "tier_1_high_intent_users": 5644,
+    "tier_2_warm_users": 5644,
+    "tier_3_browser_users": 8467,
+    "tier_4_low_signal_users": 8469,
+    "tier_1_max_propensity": 100.0,
+    "tier_1_avg_propensity": 14.52
   }
 }
