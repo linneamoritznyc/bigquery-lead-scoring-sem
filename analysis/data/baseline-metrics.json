@@ -1,0 +1,17 @@
+{
+  "_comment": "Populated from sql/04_baseline_metrics.sql. Run that query against the GA Merchandise Store sample dataset for April 2017 and paste the single-row output into the keys below.",
+  "data_window": {
+    "start_date": "2017-04-01",
+    "end_date": "2017-04-30",
+    "dataset": "bigquery-public-data.google_analytics_sample.ga_sessions_*"
+  },
+  "metrics": {
+    "total_sessions": null,
+    "total_users": null,
+    "total_conversions": null,
+    "conversion_rate": null,
+    "average_order_value": null,
+    "average_session_duration_seconds": null,
+    "total_revenue_usd": null
+  }
+}
