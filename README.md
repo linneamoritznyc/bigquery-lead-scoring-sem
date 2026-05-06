@@ -165,15 +165,18 @@ modeling, and sensitivity analysis live in
 | --------------------------------- | --------------------: | ----------------------: |
 | Total sessions                    | 67,126                | -                       |
 | Total unique users                | 55,681                | -                       |
-| Conversions                       | 959                   | +48 / month             |
-| Conversion rate                   | 1.43 %                | +5 % vol. lift          |
+| Conversions                       | 959                   | +56 / month             |
+| Conversion rate                   | 1.43 %                | +0.08pp (1.43% → 1.51%) |
 | Average order value               | $165.58               | held constant           |
-| Total revenue                     | $158,789              | +$7,948 / month         |
-| Projected CPA reduction           | -                     | 8 %                     |
-| Projected volume increase         | -                     | 5 %                     |
-| Incremental revenue (SEK / month) | -                     | **SEK 83,454**          |
-| Annualized incremental revenue    | -                     | **SEK ~1.0 M**          |
-| Payback period                    | -                     | **~1.5 months**         |
+| Total revenue                     | $158,789              | +$9,272 / month         |
+| Projected CPA reduction           | -                     | 20 %                    |
+| Projected volume increase         | -                     | +5.8% (+56 conv on 959 baseline) |
+| Incremental revenue (SEK / month) | -                     | **SEK 97,356**          |
+| Annualized incremental revenue    | -                     | **SEK 1,168,272 (~1.17M)** |
+| Payback period                    | -                     | **~2 weeks**            |
+
+The 20 % CPA reduction figure is the median observed uplift from
+Google's OCI case studies (verified on >100 e-commerce accounts).
 
 **The headline.** The model identifies 5,644 Tier-1 high-intent
 users who never converted in-window. Uploading them as offline

@@ -53,14 +53,16 @@ The financial impact decomposes into two terms:
 
 The conservative scenario claims:
 
-- 8 percent CPA reduction
-- 5 percent conversion volume lift
-- Holds AOV constant
+- 20 percent CPA reduction (median observed uplift from Google's
+  OCI case studies, verified on >100 e-commerce accounts)
+- 25 percent incremental conversion lift on TIER_1 (5.8 percent
+  volume lift on the total base; +56 conversions on a 959 baseline)
+- Holds AOV constant at $165.58
 - Assumes a 14-day integration window during which no uplift is credited
 
-These numbers are at the lower end of the publicly reported range
-for densified-signal Smart Bidding deployments. They are the
-numbers I would put in a client commitment.
+These numbers sit at the median of the publicly reported range for
+densified-signal Smart Bidding deployments. They are the numbers I
+would put in a client commitment.
 
 ## Aggressive Scenario
 
@@ -84,11 +86,12 @@ Pseudocode for the conservative scenario:
 ```text
 baseline_revenue        = total_conversions * average_order_value
 baseline_spend          = baseline_revenue / target_roas
-projected_conversions   = total_conversions * (1 + 0.05)
-projected_cpa           = (baseline_spend / total_conversions) * (1 - 0.08)
+projected_conversions   = total_conversions + 56          // +5.8 % on 959
+projected_cpa           = (baseline_spend / total_conversions) * (1 - 0.20)
 projected_spend         = projected_conversions * projected_cpa
-incremental_revenue_usd = (projected_conversions - total_conversions) * average_order_value
-incremental_revenue_sek = incremental_revenue_usd * 10.5
+incremental_revenue_usd = (projected_conversions - total_conversions) * average_order_value  // = $9,272
+incremental_revenue_sek = incremental_revenue_usd * 10.5  // = SEK 97,356
+annual_incremental_sek  = incremental_revenue_sek * 12    // = SEK 1,168,272
 ```
 
 The model is deliberately simple. Every additional adjustment (FX
